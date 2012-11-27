@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title> iRock </title>
+    <script type="text/javascript" src="cookie.js"></script>
+    <script>
+    var usuario
+
+    function redimensionarRocha () {
+      document.getElementById("rock").style.height = (document.body.clientHeight - 100) * 0.21;
+    }
+
+    function cumprimentarUsuario () {
+      if (navigator.cookieEnabled) {
+        usuario = readCookie("nomeUsuario");
+      }
+
+      if (usuario) {
+        alert("Senti sua falta, " + usuario);
+      } else {
+        alert('Ola, eu sou a rocha de estimacao');
+        document.getElementById('rock').src = 'rock_happy.png';
+        setTimeout("document.getElementById('rock').src = 'rock.png';", 500);
+      }
+    }
+
+    function tocarRocha () {
+      if (usuario) {
+        alert("Obrigado pela atencao");
+        document.getElementById("rock").src = "rock_happy.png";
+        setTimeout("document.getElementById('rock').src = 'rock.png';", 10000);
+      } else {
+        usuario = prompt("Qual seu nome?", "Entre com seu nome aqui");
+        if (usuario != "" && usuario != "Entre com seu nome aqui" && usuario != null) {
+          alert("Prazer em conhecer voce, " + usuario + ".");
+          if (navigator.cookieEnabled) {
+            writeCookie("nomeUsuario", usuario, 5000);
+          } else {
+            alert("Desculpe, cookies nao sao suportados ou nao estao habilitados em seu navegador. Nao lembrarei de voce depois.")
+          }
+          document.getElementById("rock").src = "rock_happy.png";
+          setTimeout("document.getElementById('rock').src = 'rock.png';", 10000);
+        } else {
+          alert("Por favor, diga seu nome. Quero conhecer voce.");
+          document.getElementById("rock").src = "rock_sad.png";
+        }
+      }
+    }
+
+    </script>
+  </head>
+
+  <body onload = "cumprimentarUsuario(); redimensionarRocha();" onresize = "redimensionarRocha();">
+    <div style="margin-top: 50px; text-align: center">
+      <img id="rock" src="rock.png" alt="iRock" style="cursor: pointer" onclick="tocarRocha();" /><br /><br />
+      <span id="dialogo"></span>
+    </div>
+  </body>
+</html>
